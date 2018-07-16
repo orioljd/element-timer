@@ -1,5 +1,5 @@
 "use strict";
-let elementTimer = {
+let timerElement = {
   options: {miliseconds: 40, color: '#4caf50', height: '3px', selector: '.element-timer'},
   width: 1,
   intervalId: undefined,
