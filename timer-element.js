@@ -1,28 +1,30 @@
 "use strict";
 let timerElement = {
-  options: {miliseconds: 40, color: '#4caf50', height: '3px', selector: '.element-timer'},
+  defaultOptions: {miliseconds: 40, color: '#4caf50', height: '3px', selector: '.element-timer'},
   width: 1,
   intervalId: undefined,
   elem: undefined,
   subelem: undefined,
   callback: function(){},
   run: function(options, callback){
+    this._options = this._extend({}, this.defaultOptions);
+    
     if (typeof callback==='function') this.callback = callback;
     
-    if (typeof options==='object') this._extend(this.options, options);
-    else if (typeof options==='number') this.options.miliseconds = options;
-    else if (typeof options==='string') this.options.selector = options;
+    if (typeof options==='object') this._extend(this._options, this.defaultOptions, options);
+    else if (typeof options==='number') this._options.miliseconds = options;
+    else if (typeof options==='string') this._options.selector = options;
     else if (typeof options==='function') this.callback = options;
         
     this.width = 1;
-    this.elem = document.querySelector(this.options.selector);
+    this.elem = document.querySelector(this._options.selector);
     this.subelem = document.createElement("div");
     this.subelem.style.width = this.width+'%';
-    this.subelem.style.height = this.options.height;
-    this.subelem.style.backgroundColor = this.options.color;
+    this.subelem.style.height = this._options.height;
+    this.subelem.style.backgroundColor = this._options.color;
     this.elem.appendChild(this.subelem);
     
-    this.intervalId = setInterval(this.frame, this.options.miliseconds, this);
+    this.intervalId = setInterval(this.frame, this._options.miliseconds, this);
   },
   frame: function(element){
     if (element.width >= 100) {
@@ -33,6 +35,7 @@ let timerElement = {
         element.subelem.style.width = element.width + '%'; 
     }
   },
+  _options: {},
   _extend: function() {
     for(var i=1; i<arguments.length; i++)
       for(var key in arguments[i])
