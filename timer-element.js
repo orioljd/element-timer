@@ -9,7 +9,7 @@ let timerElement = {
   run: function(options, callback){
     if (typeof callback==='function') this.callback = callback;
     
-    if (typeof options==='object') $.extend(this.options, options);
+    if (typeof options==='object') this._extend(this.options, options);
     else if (typeof options==='number') this.options.miliseconds = options;
     else if (typeof options==='string') this.options.selector = options;
     else if (typeof options==='function') this.callback = options;
@@ -32,5 +32,12 @@ let timerElement = {
         element.width++;
         element.subelem.style.width = element.width + '%'; 
     }
+  },
+  _extend: function() {
+    for(var i=1; i<arguments.length; i++)
+      for(var key in arguments[i])
+        if(arguments[i].hasOwnProperty(key))
+          arguments[0][key] = arguments[i][key];
+    return arguments[0];
   }
 };
