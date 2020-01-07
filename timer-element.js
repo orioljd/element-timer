@@ -1,6 +1,6 @@
 "use strict";
 let timerElement = {
-  defaultOptions: {miliseconds: 40, color: '#4caf50', height: '3px', selector: '.element-timer'},
+  defaultOptions: {milliseconds: 40, color: '#4caf50', height: '3px', selector: '.element-timer'},
   width: 1,
   intervalId: undefined,
   elem: undefined,
@@ -12,7 +12,7 @@ let timerElement = {
     if (typeof callback==='function') this.callback = callback;
     
     if (typeof options==='object') this._extend(this._options, this.defaultOptions, options);
-    else if (typeof options==='number') this._options.miliseconds = options;
+    else if (typeof options==='number') this._options.milliseconds = options;
     else if (typeof options==='string') this._options.selector = options;
     else if (typeof options==='function') this.callback = options;
         
@@ -24,7 +24,7 @@ let timerElement = {
     this.subelem.style.backgroundColor = this._options.color;
     this.elem.appendChild(this.subelem);
     
-    this.intervalId = setInterval(this.frame, this._options.miliseconds, this);
+    this.intervalId = setInterval(this.frame, this._options.milliseconds, this);
   },
   frame: function(element){
     if (element.width >= 100) {
